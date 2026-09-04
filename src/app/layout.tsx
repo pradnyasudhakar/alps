@@ -17,7 +17,7 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "Alps Hotel & Travels",
+  title: "Alps Travels",
   description: "Discover breathtaking destinations, thoughtfully planned holidays.",
 };
 
