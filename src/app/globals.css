@@ -23,3 +23,21 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+/* Poori website ki scrollbar hide karo, lekin scroll functionality kaam karti rahegi */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge/IE */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, new Edge */
+}
+
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}

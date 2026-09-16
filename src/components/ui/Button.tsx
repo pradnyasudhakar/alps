@@ -3,7 +3,7 @@ import Link from "next/link";
 type ButtonProps = {
   children: React.ReactNode;
   href?: string;
-  variant?: "primary" | "outline" | "white";
+   variant?: "primary" | "outline" | "white" | "outline-primary";
   onClick?: () => void;
   type?: "button" | "submit";
 };
@@ -25,6 +25,8 @@ export default function Button({
       "bg-transparent border-white text-white hover:bg-white hover:text-slate-900",
     white:
       "bg-white border-white text-slate-900 hover:bg-transparent hover:text-white",
+        "outline-primary":
+      "bg-transparent border-primary text-primary hover:bg-primary hover:text-white",
   };
 
   const classes = `${baseClasses} ${variantClasses[variant]}`;

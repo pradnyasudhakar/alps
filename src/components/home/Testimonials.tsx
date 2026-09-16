@@ -81,7 +81,7 @@ export default function Testimonials() {
           >
             <H2 className="mb-4 font-body text-[#0B0B0B] ">Probably the best trip we have ever had</H2>
 
-            <P className="font-body  italic  mx-auto mb-4 ">
+            <P className="font-body    mx-auto mb-4 ">
               &ldquo;{current.quote}&rdquo;
             </P>
 

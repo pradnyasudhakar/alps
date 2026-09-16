@@ -4,7 +4,7 @@ import { useState } from "react";
 import { H2, P } from "@/components/ui/Typography";
 import DestinationCard from "@/components/ui/DestinationCard";
 
-const filters = ["By Experience", "By Traveler"];
+const filters = ["By Experience", "By Traveller"];
 
 const cardsData = {
   "By Experience": [
@@ -12,10 +12,10 @@ const cardsData = {
     { title: "Mountain Retreats", image: "/images/alps-2.png" },
     { title: "Wildlife & Safari", image: "/images/alps-3.png" },
     { title: "Northern Lights", image: "/images/alps-4.png" },
-    { title: "City Escapes", image: "/images/alps-5.png" },
+    { title: "City Breaks", image: "/images/alps-5.png" },
     { title: "Snow & Ski", image: "/images/alps-6.png" },
   ],
-  "By Traveler": [
+  "By Traveller": [
     { title: "Solo Adventures", image: "/images/alps-1.png" },
     { title: "Family Getaways", image: "/images/alps-1.png" },
     { title: "Honeymoon Specials", image: "/images/alps-1.png" },

@@ -73,47 +73,46 @@ export default function TrendingSlider() {
     setDirection(-1);
     setIndex((prev) => (prev - 1 + total) % total);
   };
+
   const cardVariants = {
-  enter: (dir: number) => ({
-    opacity: 0,
-    x: dir > 0 ? 60 : -60,
-    scale: dir > 0 ? 0.85 : 1.3,
-  }),
-  center: {
-    opacity: 1,
-    x: 0,
-    scale: 1,
-  },
-  exit: (dir: number) => ({
-    opacity: 0,
-    x: dir > 0 ? -60 : 60,
-    scale: dir > 0 ? 0.7 : 1.1,
-  }),
-};
+    enter: (dir: number) => ({
+      opacity: 0,
+      x: dir > 0 ? 60 : -60,
+      scale: dir > 0 ? 0.85 : 1.3,
+    }),
+    center: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+    },
+    exit: (dir: number) => ({
+      opacity: 0,
+      x: dir > 0 ? -60 : 60,
+      scale: dir > 0 ? 0.7 : 1.1,
+    }),
+  };
 
   return (
     <section className="relative w-full min-h-140 md:min-h-140 2xl:min-h-180 overflow-hidden bg-slate-900">
-      {/* Background Image - crossfade */}
+      {/* Background Image - crossfade, faster now */}
       <AnimatePresence mode="wait">
         <motion.div
           key={current.image}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.7, ease: "easeInOut" }}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
           className="absolute inset-0"
         >
-          <Image src={current.image} alt={current.title} fill className="object-cover" priority />
+          <Image src={current.image} alt={current.title} fill className="object-cover object-center" priority />
         </motion.div>
       </AnimatePresence>
 
-      {/* Uniform dark tint over the WHOLE image */}
       <div
         className="absolute inset-0 z-1 pointer-events-none"
         style={{ background: "rgba(6,12,20,0.42)" }}
       />
 
-      {/* Glass layer */}
       <div
         className="absolute inset-y-0 left-0 z-2 pointer-events-none w-full lg:w-100 2xl:w-110 "
         style={{
@@ -123,7 +122,6 @@ export default function TrendingSlider() {
         }}
       />
 
-      {/* Extra bottom fade */}
       <div
         className="absolute inset-x-0 bottom-0 h-40 z-1 pointer-events-none"
         style={{
@@ -131,11 +129,10 @@ export default function TrendingSlider() {
         }}
       />
 
-      {/* Content: Left details + Right side cards (with nav below it) */}
       <div className="relative z-10 px-6 sm:px-10 md:px-16 pt-16 sm:pt-24 pb-10 flex flex-col lg:flex-row gap-8 md:gap-8 lg:gap-0 items-center lg:items-end">
-        {/* Left: Details */}
+        {/* Left: Details - fixed min-height to prevent layout jump */}
         <div className="flex-1 flex flex-col justify-center text-white max-w-full lg:max-w-md 2xl:max-w-md w-full">
-          <div className="relative">
+          <div className="relative min-h-110 sm:min-h-105">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={current.title}
@@ -144,13 +141,14 @@ export default function TrendingSlider() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: direction > 0 ? -30 : 30 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="absolute inset-0"
               >
                 <div className="flex items-center gap-1.5 mb-3 text-sm text-white/80">
                   <FaMapMarkerAlt className="w-4 h-4" />
                   <Label>{current.location}</Label>
                 </div>
 
-                <H2 className="max-w-full lg:max-w-60 font-light 2xl:max-w-80 tracking-wider 2xl:leading-snug  text-2xl sm:text-3xl mb-4">
+                <H2 className="max-w-full lg:max-w-60 font-light 2xl:max-w-80 tracking-wider 2xl:leading-snug text-2xl sm:text-3xl mb-4">
                   {current.title}
                 </H2>
 
@@ -163,15 +161,17 @@ export default function TrendingSlider() {
                   {current.details2}
                 </P>
 
+                {/* Icons - bigger now */}
                 <div className="flex items-center gap-4 mb-6 text-[#FBFBFB]">
-                  <MdFlight className="w-5 h-5 rotate-35" />
-                  <FaHotel className="w-5 h-5" />
-                  <FaUtensils className="w-5 h-5" />
-                  <FaCamera className="w-5 h-5" />
+                  <MdFlight className="w-6 h-6 sm:w-6 sm:h-6 rotate-35" />
+                  <FaHotel className="w-6 h-6 sm:w-6 sm:h-6" />
+                  <FaUtensils className="w-6 h-6 sm:w-6 sm:h-6" />
+                  <FaCamera className="w-6 h-6 sm:w-6 sm:h-6" />
                 </div>
 
-                <Small className="text-[#FBFBFB] font-light mb-3 block">
-                  From <span className="font-semibold">{current.price}</span> / person
+                {/* Price - bigger now */}
+                <Small className="text-[#FBFBFB] font-light mb-3 block text-base sm:text-lg">
+                  From <span className="font-semibold text-lg sm:text-xl">{current.price}</span> / person
                 </Small>
                 <div>
                   <Button variant="outline">Enquire Now</Button>
@@ -182,45 +182,45 @@ export default function TrendingSlider() {
         </div>
 
         {/* Right: Side Cards + Navigation */}
-        <div className="flex-1 w-full flex flex-col   ">
-          <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-3    gap-2 sm:gap-8">
-           <AnimatePresence mode="popLayout" custom={direction} initial={false}>
-  {sideCards.map((card, i) => (
-    <motion.div
-      key={`${card.title}-${i}-${index}`}
-      custom={direction}
-      variants={cardVariants}
-      initial="enter"
-      animate="center"
-      exit="exit"
-      transition={{ duration: 0.6, ease: "easeInOut", delay: i * 0.08 }}
-      className="relative rounded-[26px] overflow-hidden h-36 sm:h-48 2xl:h-86! md:h-64"
-    >
-      <Image src={card.image} alt={card.title} fill className="object-cover" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0) 65%)",
-        }}
-      />
-      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-4 2xl:p-4">
-        <div className="flex items-center gap-1 mb-1">
-          <FaMapMarkerAlt className="w-4 h-4 sm:w-4 sm:h-4 text-white shrink-0" />
-          <span className="font-body text-base font-light text-white/80 truncate">
-            {card.location}
-          </span>
-        </div>
-        <H4 className="font-body max-w-55 text-white leading-snug line-clamp-2">
-          {card.title}
-        </H4>
-      </div>
-    </motion.div>
-  ))}
-</AnimatePresence>
+        <div className="flex-1 w-full flex flex-col">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-8">
+            <AnimatePresence mode="popLayout" custom={direction} initial={false}>
+              {sideCards.map((card, i) => (
+                <motion.div
+                  key={`${card.title}-${i}-${index}`}
+                  custom={direction}
+                  variants={cardVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.6, ease: "easeInOut", delay: i * 0.08 }}
+                  className="relative rounded-[26px] overflow-hidden h-36 sm:h-48 2xl:h-86! md:h-64"
+                >
+                  <Image src={card.image} alt={card.title} fill className="object-cover object-center" />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 45%, rgba(0,0,0,0) 65%)",
+                    }}
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-4 2xl:p-4">
+                    <div className="flex items-center gap-1 mb-1">
+                      <FaMapMarkerAlt className="w-4 h-4 sm:w-4 sm:h-4 text-white shrink-0" />
+                      <span className="font-body text-base font-light text-white/80 truncate">
+                        {card.location}
+                      </span>
+                    </div>
+                    <H4 className="font-body max-w-55 text-white leading-snug line-clamp-2">
+                      {card.title}
+                    </H4>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
 
-          {/* Navigation */}
+          {/* Navigation - counter bigger now */}
           <div className="flex items-center gap-4 sm:gap-6 mt-4 sm:mt-6">
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <button
@@ -241,7 +241,7 @@ export default function TrendingSlider() {
 
             <div className="flex-1 border-t border-0.5 border-[#FFFFFF]" />
 
-            <span className="font-heading text-white text-lg sm:text-2xl shrink-0">
+            <span className="font-heading text-white text-2xl sm:text-3xl shrink-0">
               {String(index + 1).padStart(2, "0")}
             </span>
           </div>

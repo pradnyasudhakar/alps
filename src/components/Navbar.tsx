@@ -27,7 +27,7 @@ export default function Navbar() {
             src="/images/alps-logo.png"
             alt="Alps Hotel & Travels"
             width={140}
-            height={70}
+            height={100}
             className="object-contain w-28 md:w-32 lg:w-36 h-auto"
           />
         </Link>
@@ -51,8 +51,8 @@ export default function Navbar() {
           })}
           {/* Desktop CTA Button */}
           <div className="hidden lg:block">
-            <Button variant="primary">Enquire Now</Button>
-          </div>
+  <Button variant="primary" href="/contact">Enquire Now</Button>
+</div>
         </ul>
 
         {/* Hamburger Button - ab tablet (md) tak bhi dikhega, sirf lg se upar hidden hoga */}
@@ -97,7 +97,7 @@ export default function Navbar() {
             );
           })}
         </ul>
-        <Button variant="primary" onClick={() => setIsOpen(false)}>
+        <Button variant="primary" href="/contact" >
           Enquire Now
         </Button>
       </div>

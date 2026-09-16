@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Rubik } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+// import Navbar from "@/components/Navbar";
+import ConditionalNavbar from "@/components/ConditionalNavbar";
+import ConditionalFooter from "@/components/ConditionalFooter";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -29,9 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${rubik.variable}`}>
       <body className="antialiased min-h-full flex flex-col" suppressHydrationWarning>
-        <Navbar />
+        <ConditionalNavbar />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <ConditionalFooter />
       </body>
     </html>
   );

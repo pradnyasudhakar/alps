@@ -17,8 +17,8 @@ export default function Hero() {
         className="object-cover -z-10"
       />
 
-      {/* Dark Overlay */}
-      <Overlay />
+      {/* Dark Overlay - Figma spec: #0B0B0B, 60% opacity */}
+<Overlay variant="flat" className="bg-[#0B0B0B]/60" />
 
       {/* Content */}
       <div className="px-6 sm:px-10 md:px-16 w-full 2xl:max-w-3xl md:max-w-2xl">
