@@ -14,7 +14,12 @@ export default function AdventurePackagesPage() {
     <>
      
 <ListingHero
-  title="Perfect Holidays, Crafted Just for You"
+  title={
+    <>
+      Perfect Holidays, Crafted <br />
+       Just for You
+    </>
+  }
   image="/images/holidays-hero.jpg"
   searchOptions={[
     { value: "kashmir", label: "Kashmir, India" },

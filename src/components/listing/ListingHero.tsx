@@ -11,7 +11,7 @@ type SearchOption = {
 };
 
 type ListingHeroProps = {
-  title: string;
+  title: React.ReactNode;
   image?: string;
   // Search bar - ab sab kuch reusable/configurable hai
   showSearch?: boolean;
