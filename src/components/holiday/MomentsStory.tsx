@@ -27,6 +27,7 @@ export default function MomentsStory() {
   const [centerIndex, setCenterIndex] = useState(2);
   const [isPaused, setIsPaused] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const centerCardRef = useRef<HTMLDivElement>(null);
 
   const total = moments.length;
 
@@ -44,6 +45,29 @@ export default function MomentsStory() {
     return () => clearInterval(timer);
   }, [isPaused, goNext]);
 
+  // Jab bhi centerIndex badle, us card ko actually screen ke center me scroll karo
+ // Jab bhi centerIndex badle, us card ko horizontally center karo - vertical scroll ko touch kiye bina
+useEffect(() => {
+  const timer = setTimeout(() => {
+    const container = scrollRef.current;
+    const centerCard = centerCardRef.current;
+    if (!container || !centerCard) return;
+
+    const containerWidth = container.offsetWidth;
+    const cardLeft = centerCard.offsetLeft;
+    const cardWidth = centerCard.offsetWidth;
+
+    const targetScrollLeft = cardLeft - containerWidth / 2 + cardWidth / 2;
+
+    container.scrollTo({
+      left: targetScrollLeft,
+      behavior: "smooth",
+    });
+  }, 500);
+
+  return () => clearTimeout(timer);
+}, [centerIndex]);
+
   const half = Math.floor(total / 2);
   const orderedMoments = Array.from({ length: total }, (_, i) => {
     const offset = i - half;
@@ -57,11 +81,10 @@ export default function MomentsStory() {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Header */}
       <div className="flex items-start px-6 sm:px-10 md:px-16 justify-between mb-8 sm:mb-12 gap-4">
         <H2 className="relative text-[#0B0B0B] inline-block">
           Moments that tell a Story
-          <span className="block w-full max-w-[220px] sm:w-75 h-0.5 bg-slate-900 mt-2" />
+          <span className="block w-full max-w-55 sm:w-75 h-0.5 bg-slate-900 mt-2" />
         </H2>
 
         <div className="hidden sm:flex items-center gap-3 shrink-0 mt-2">
@@ -82,10 +105,9 @@ export default function MomentsStory() {
         </div>
       </div>
 
-      {/* Carousel - ab poori width use karta hai, edges bleed ho sakti hain, justify-center ki jagah scrollable row */}
       <div
         ref={scrollRef}
-        className="flex items-center gap-3 sm:gap-6 w-full overflow-x-auto scrollbar-hide  "
+        className="flex items-center gap-3 sm:gap-6 w-full overflow-x-auto scrollbar-hide"
       >
         {orderedMoments.map((moment) => {
           const isCenter = moment.distance === 0;
@@ -94,26 +116,20 @@ export default function MomentsStory() {
           return (
             <div
               key={moment.id}
+              ref={isCenter ? centerCardRef : undefined}
               onClick={() => {
                 const realIndex = moments.findIndex((m) => m.id === moment.id);
                 setCenterIndex(realIndex);
               }}
               className={`relative shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 ease-in-out ${
                 isCenter
-                  ? "w-56 sm:w-72 md:w-80 lg:w-94 h-72 sm:h-105 md:h-125 z-10"
+                  ? "w-56 sm:w-72 md:w-80 2xl:w-94 h-72 sm:h-105 md:h-100 2xl:h-125 z-10"
                   : absDistance === 1
-                  ? "w-40 sm:w-52 md:w-60 lg:w-80 h-60 sm:h-80 md:h-96 opacity-80"
-                  : "w-28 sm:w-36 md:w-44 lg:w-64 h-48 sm:h-64 md:h-80 opacity-50"
+                  ? "w-40 sm:w-52 md:w-60 2xl:w-80 h-60 sm:h-80 md:h-80 2xl:h-90 opacity-80"
+                  : "w-28 sm:w-36 md:w-50 2xl:w-64 h-48 sm:h-64 md:h-70 2xl:h-80 opacity-50"
               }`}
             >
-              <Image
-                src={moment.image}
-                alt={moment.title}
-                fill
-                className="object-cover"
-              />
-
-              {/* <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" /> */}
+              <Image src={moment.image} alt={moment.title} fill className="object-cover" />
 
               {absDistance <= 1 && (
                 <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">

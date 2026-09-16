@@ -7,7 +7,7 @@ import { FiFacebook, FiTwitter, FiSend, FiInstagram } from "react-icons/fi";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Packages", href: "/packages" },
+  { name: "Packages", href: "/listing" },
   { name: "Contact Us", href: "/contact" },
   { name: "Gallery", href: "/gallery" },
 ];
@@ -41,7 +41,7 @@ export default function Footer() {
           Whatever you want your luxury holiday tour to safari itinerary to
           include, we&apos;ll create something truly bespoke for you...only you.
         </P>
-        <Button variant="white">Enquire Now</Button>
+        <Button variant="white" href="/contact" >Enquire Now</Button>
       </div>
 
       {/* Navigation Row */}

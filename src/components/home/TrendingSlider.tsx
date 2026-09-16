@@ -174,7 +174,7 @@ export default function TrendingSlider() {
                   From <span className="font-semibold text-lg sm:text-xl">{current.price}</span> / person
                 </Small>
                 <div>
-                  <Button variant="outline">Enquire Now</Button>
+                  <Button variant="outline" href="/contact" >Enquire Now</Button>
                 </div>
               </motion.div>
             </AnimatePresence>

@@ -21,45 +21,61 @@ const packages: Package[] = [
   {
     id: "1",
     image: "/images/best-1.jpg",
-    location: "Jammu, India",
+    location: "Jaisalmer, India",
     title: "Kashmir — Paradise in the Mountains",
-    description: "6 nights and 7 days in 5 star hotel, breakfast included.",
-    price: "₹42,000",
+    description: "5 nights and 4 days in 5 star hotel, breakfast included.",
+    price: "₹50,000",
   },
   {
     id: "2",
     image: "/images/best-2.jpg",
-    location: "Jaisalmer, India",
-    title: "Rajasthan — The Land of Kings",
-    description: "5 nights and 6 days in heritage hotel, breakfast and dinner included.",
-    price: "₹38,500",
+    location: "Kerala, India",
+    title: "Kerala — God’s Own Country",
+    description: "5 nights and 4 days in 5 star hotel, breakfast included.",
+    price: "₹50,000",
   },
   {
     id: "3",
     image: "/images/best-3.jpg",
-    location: "Kerala, India",
-    title: "Kerala — God's Own Country",
+    location: "Atlantis, UAE",
+    title: "Dubai — The Pearl of the Gulf",
     description: "5 nights and 4 days in 5 star hotel, breakfast included.",
     price: "₹50,000",
   },
   {
     id: "4",
     image: "/images/best-4.jpg",
-    location: "Atlantis, UAE",
-    title: "Dubai — The Pearl of the Gulf",
-    description: "4 nights and 5 days in luxury resort, breakfast included.",
-    price: "₹65,000",
+    location: "Merlion, Singapore",
+    title: "Singapore — Island at the End",
+    description: "5 nights and 4 days in 5 star hotel, breakfast included.",
+    price: "₹50,000",
   },
   {
     id: "5",
     image: "/images/best-5.jpg",
-    location: "Merlion, Singapore",
-    title: "Singapore — Island at the End",
-    description: "5 nights and 6 days in 4 star hotel, breakfast included.",
-    price: "₹72,000",
+    location: "Ban Luang, Thailand",
+    title: "Thailand — The Land of the Free",
+    description: "5 nights and 4 days in 5 star hotel, breakfast included.5 nights and 4 days in 5 star hotel, breakfast included.",
+    price: "₹50,000",
   },
   {
     id: "6",
+    image: "/images/best-6.jpg",
+    location: "Bangkok, Thailand",
+    title: "Thailand — The Land of Smiles",
+    description: "5 nights and 4 days in 5 star hotel, breakfast included.",
+    price: "₹50,000",
+  },
+  {
+    id: "7",
+    image: "/images/best-6.jpg",
+    location: "Bangkok, Thailand",
+    title: "Thailand — The Land of Smiles",
+    description: "6 nights and 7 days in 4 star hotel, breakfast included.",
+    price: "₹50,000",
+  },
+  {
+    id: "8",
     image: "/images/best-6.jpg",
     location: "Bangkok, Thailand",
     title: "Thailand — The Land of Smiles",
@@ -111,12 +127,12 @@ export default function BestSellingPackages() {
       {/* Scrollable Cards */}
       <div
         ref={scrollRef}
-        className="flex gap-4 sm:gap-2 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide pb-4 -mx-6 px-6 sm:mx-0 sm:px-0"
+        className="flex gap-4 sm:gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide pb-4 -mx-6 px-6 sm:mx-0 sm:px-0"
       >
         {packages.map((pkg) => (
           <div
             key={pkg.id}
-            className="group relative shrink-0 w-50 sm:w-55 md:w-65 h-90 sm:h-90 rounded-2xl overflow-hidden snap-start cursor-pointer"
+            className="group relative shrink-0 w-50 sm:w-55 md:w-74 h-96 sm:h-96 rounded-2xl overflow-hidden snap-start cursor-pointer"
           >
             {/* Background Image */}
             <Image
@@ -156,19 +172,19 @@ export default function BestSellingPackages() {
               </H4>
 
               {/* Extra details - sirf hover par reveal hote hain */}
-              <div className="max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-300 ease-in-out overflow-hidden">
-                <P className="text-white/80 text-sm mb-4 leading-relaxed">
-                  {pkg.description}
-                </P>
+<div className="max-h-0 opacity-0 group-hover:max-h-56 group-hover:opacity-100 transition-all duration-300 ease-in-out overflow-hidden">
+  <P className="text-white/80 text-sm mb-3 leading-relaxed line-clamp-2">
+    {pkg.description}
+  </P>
 
-                <Small className="text-white/70 mb-4 block">
-                  From <span className="font-semibold text-white">{pkg.price}</span>
-                </Small>
+  <Small className="text-white/70 mb-3 block">
+    From <span className="font-semibold text-white">{pkg.price}</span>
+  </Small>
 
-                <Button variant="white" >
-                  DETAILS
-                </Button>
-              </div>
+  <Button variant="white" href={`/contact?packageId=${pkg.id}&packageTitle=${encodeURIComponent(pkg.title)}`}>
+    DETAILS
+  </Button>
+</div>
             </div>
           </div>
         ))}

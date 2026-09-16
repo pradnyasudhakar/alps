@@ -16,12 +16,12 @@ const cardsData = {
     { title: "Snow & Ski", image: "/images/alps-6.png" },
   ],
   "By Traveller": [
-    { title: "Solo Adventures", image: "/images/alps-1.png" },
-    { title: "Family Getaways", image: "/images/alps-1.png" },
-    { title: "Honeymoon Specials", image: "/images/alps-1.png" },
-    { title: "Group Tours", image: "/images/alps-1.png" },
-    { title: "Luxury Escapes", image: "/images/alps-1.png" },
-    { title: "Budget Trips", image: "/images/alps-1.png" },
+    { title: "Honeymoon Escapes", image: "/images/alps-7.png" },
+    { title: "Group Adventures", image: "/images/alps-8.png" },
+    { title: "Family Holidays", image: "/images/alps-9.png" },
+    { title: "Couples Getaways", image: "/images/alps-10.png" },
+    { title: "Solo Journeys", image: "/images/alps-11.png" },
+    { title: "Private Tours", image: "/images/alps-12.png" },
   ],
 };
 

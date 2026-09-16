@@ -33,6 +33,18 @@ model Booking {
   status    String   @default("pending")
   createdAt DateTime @default(now())
 }
+model Listing {
+  id            String   @id @default(cuid())
+  title         String
+  location      String
+  pricePerNight Int
+  category      String
+  description   String
+  images        String[]
+  rating        Int      @default(5)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
 
 model User {
   id        String   @id @default(cuid())

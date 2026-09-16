@@ -17,7 +17,7 @@ type Package = {
 const packages: Package[] = [
   {
     id: "1",
-    image: "/images/special-1.png",
+    image: "/images/special-12.png",
     title: "Kashmir - Paradise in the Mountains",
     details: "6 Nights / 7 Days • Srinagar • Gulmarg • Pahalgam • Sonamarg",
     price: "₹39,999",
@@ -26,28 +26,28 @@ const packages: Package[] = [
   },
   {
     id: "2",
-    image: "/images/special-2.png",
+    image: "/images/special-1.png",
     title: "Enchanting Kerela",
     price: "₹23,700",
     span: "sm:col-span-1",
   },
   {
     id: "3",
-    image: "/images/special-3.png",
+    image: "/images/special-2.png",
     title: "Dubai Bliss",
     price: "₹49,999",
     span: "sm:col-span-1",
   },
   {
     id: "4",
-    image: "/images/special-4.png",
+    image: "/images/special-3.png",
     title: "Kenyan Safari",
     price: "₹1,29,999",
     span: "sm:col-span-1 ",
   },
   {
     id: "5",
-    image: "/images/special-5.jpg",
+    image: "/images/special-4.png",
     title: "Highlights Of Thailand",
     price: "₹72,800",
     span: "lg:col-span-2 md:col-span-1 ",
@@ -100,7 +100,7 @@ export default function AlpsSpecial() {
 
                     {/* Button - hover pe reveal */}
                     <Link
-                      href="/enquire"
+                      href="/contact"
                       className="font-body text-sm bg-white text-slate-900 px-4 py-2 rounded-md whitespace-nowrap max-w-0 opacity-0 overflow-hidden group-hover:max-w-xs group-hover:opacity-100 transition-all duration-300 ease-in-out"
                     >
                       Enquire Now
@@ -117,7 +117,7 @@ export default function AlpsSpecial() {
         {/* CTA Card - "See More Packages" */}
         <div className="group relative lg:col-span-1 md:col-span-2 h-84 rounded-[26px] overflow-hidden flex flex-col justify-end text-left p-6">
           <Image
-            src="/images/special-1.png"
+            src="/images/special-5.jpg"
             alt="See more packages"
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -132,7 +132,7 @@ export default function AlpsSpecial() {
               1,200+ Handpicked Getaways waiting
             </P>
             <Button
-              href="/packages" variant="white"
+              href="/listing" variant="white"
               
             >
               See More Packages

@@ -60,7 +60,7 @@ export default function ExploreThemes() {
 
       {/* Accordion Cards - onMouseLeave poore row par, taaki mouse hatte hi card 1 par reset ho */}
      <div
-  className="flex gap-2 sm:gap-3 h-100 sm:h-125 lg:h-100"
+  className="flex gap-2 sm:gap-3 h-100 sm:h-125 md:h-100 2xl:h-120"
   onMouseLeave={() => setActiveIndex(0)}
 >
   {themes.map((theme, index) => {
@@ -70,7 +70,7 @@ export default function ExploreThemes() {
         key={theme.id}
         onMouseEnter={() => setActiveIndex(index)}
         className={`relative transition-[flex-grow] duration-500 ease-in-out rounded-[20px] overflow-hidden cursor-pointer min-w-0 ${
-          isActive ? "flex-[2.50]" : "flex-1"
+          isActive ? "flex-[2.30]" : "flex-1"
         }`}
       >
               {/* Background Image */}
@@ -104,9 +104,9 @@ export default function ExploreThemes() {
                   isActive ? "opacity-100 delay-150" : "opacity-0"
                 }`}
               >
-                <H3 className="text-white mb-2 whitespace-nowrap">{theme.label}</H3>
+                <H3 className="text-white font-light leading-normal tracking-wider mb-2 whitespace-nowrap">{theme.label}</H3>
                 {theme.description && (
-                  <P className="text-white/85 text-sm mb-4 max-w-xs">
+                  <P className="text-white/85 font-body text-sm mb-4 max-w-xs">
                     {theme.description}
                   </P>
                 )}

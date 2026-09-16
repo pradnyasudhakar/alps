@@ -50,7 +50,7 @@ export default function ListingHero({
 
       {/* Content */}
       <div className="px-6 sm:px-10 md:px-16 w-full">
-        <Display className=" md:max-w-lg 2xl:max-w-2xl leading-normal ">
+        <Display className=" md:max-w-2xl 2xl:max-w-3xl leading-normal ">
           {title}
         </Display>
 

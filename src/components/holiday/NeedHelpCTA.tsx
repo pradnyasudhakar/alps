@@ -43,7 +43,7 @@ export default function NeedHelpCTA({
           {subtext}
         </P>
 
-        <Button variant="primary"  onClick={onRequestCallback}>
+        <Button variant="primary" href="/contact"  onClick={onRequestCallback}>
           {buttonText}
         </Button>
       </div>

@@ -20,28 +20,31 @@ type PackageItem = {
   category: string;
 };
 
-function PackageCard({ pkg }: { pkg: PackageItem }) {
+function PackageCard({ pkg, tall = false }: { pkg: PackageItem; tall?: boolean }) {
   return (
-    <div className="relative rounded-[20px] overflow-hidden flex flex-col justify-end p-5 md:min-h-110 2xl:min-h-140">
+    <div
+      className={`relative rounded-[20px] overflow-hidden flex flex-col justify-end p-5 ${
+        tall ? "md:min-h-80 2xl:min-h-96" : "md:min-h-110 2xl:min-h-140"
+      }`}
+    >
       <Image
         src={pkg.image || "/images/placeholder.jpg"}
         alt={pkg.title}
         fill
         className="object-cover -z-10"
       />
-     <div
-  className="absolute inset-0 -z-10"
-  style={{
-    background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%)",
-  }}
-
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%)",
+        }}
       />
 
-      <div className=" mb-3 flex items-center gap-2">
+      <div className="mb-3 flex items-center gap-2">
         <span className="bg-white backdrop-blur-sm border border-white/50 text-primary md:text-xs 2xl:text-sm font-body font-light px-3 py-1 rounded-full">
           {pkg.duration}
         </span>
-        <span className="bg-white backdrop-blur-sm border border-white/50 text-primary  md:text-xs 2xl:text-sm font-body font-light px-3 py-1 rounded-full">
+        <span className="bg-white backdrop-blur-sm border border-white/50 text-primary md:text-xs 2xl:text-sm font-body font-light px-3 py-1 rounded-full">
           {pkg.tourType}
         </span>
       </div>
@@ -50,9 +53,10 @@ function PackageCard({ pkg }: { pkg: PackageItem }) {
         <H4 className="font-body text-white text-base font-normal mb-3 line-clamp-2">
           {pkg.title}
         </H4>
-        <p className="font-body text-[#FBFBFB] font-light text-[16px] mb-3 max-w-75  ">{pkg.route}</p>
+        <p className="font-body text-[#FBFBFB] font-light text-[16px] mb-3 max-w-75">
+          {pkg.route}
+        </p>
 
-        {/* Static icons — sab cards pe hamesha same rahenge */}
         <div className="flex items-center gap-3 text-white/90 mb-4">
           <MdFlight className="w-7 h-7 rotate-45" />
           <FaHotel className="w-7 h-7" />
@@ -78,6 +82,51 @@ function PackageCard({ pkg }: { pkg: PackageItem }) {
   );
 }
 
+const LAYOUT_PATTERN = [3, 3, 1, 3, 2];
+
+function chunkPackages(items: PackageItem[]) {
+  const groups: PackageItem[][] = [];
+  let index = 0;
+  let patternIndex = 0;
+
+  while (index < items.length) {
+    const size = LAYOUT_PATTERN[patternIndex % LAYOUT_PATTERN.length];
+    groups.push(items.slice(index, index + size));
+    index += size;
+    patternIndex++;
+  }
+
+  return groups;
+}
+
+function PackageGroup({ items }: { items: PackageItem[] }) {
+  if (items.length === 1) {
+    return (
+      <div className="mb-6">
+        <PackageCard pkg={items[0]} tall />
+      </div>
+    );
+  }
+
+  if (items.length === 2) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        {items.map((pkg) => (
+          <PackageCard key={pkg.id} pkg={pkg} tall />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      {items.map((pkg) => (
+        <PackageCard key={pkg.id} pkg={pkg} />
+      ))}
+    </div>
+  );
+}
+
 export default function PackagesGrid({
   packages = [],
   category = "All Packages",
@@ -86,6 +135,7 @@ export default function PackagesGrid({
   category?: string;
 }) {
   const [sortOption, setSortOption] = useState("default");
+  const [visibleCount, setVisibleCount] = useState(9);
 
   const sortedPackages = useMemo(() => {
     const list = [...packages];
@@ -93,6 +143,10 @@ export default function PackagesGrid({
     if (sortOption === "high-to-low") list.sort((a, b) => b.price - a.price);
     return list;
   }, [packages, sortOption]);
+
+  const visiblePackages = sortedPackages.slice(0, visibleCount);
+  const hasMore = visibleCount < sortedPackages.length;
+  const groups = useMemo(() => chunkPackages(visiblePackages), [visiblePackages]);
 
   return (
     <section className="px-6 sm:px-10 md:px-16 py-8 sm:py-10">
@@ -128,11 +182,24 @@ export default function PackagesGrid({
           <p className="text-slate-500">Is category me abhi koi package nahi hai.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedPackages.map((pkg) => (
-            <PackageCard key={pkg.id} pkg={pkg} />
-          ))}
-        </div>
+        <>
+          <div>
+            {groups.map((group, i) => (
+              <PackageGroup key={i} items={group} />
+            ))}
+          </div>
+
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={() => hasMore && setVisibleCount((c) => c + 9)}
+              disabled={!hasMore}
+              className="flex items-center gap-2 border border-primary text-primary px-6 py-2.5 rounded-md text-sm hover:bg-primary hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-primary"
+            >
+              Load More
+              <FiChevronDown className="w-4 h-4" />
+            </button>
+          </div>
+        </>
       )}
     </section>
   );
